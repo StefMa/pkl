@@ -1,4 +1,5 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import java.net.URI
 
 plugins {
@@ -14,6 +15,11 @@ dependencies {
   testImplementation(buildInfo.libs.findLibrary("kotlinStdLib").get())
 
   testRuntimeOnly(buildInfo.libs.findLibrary("junitEngine").get())
+}
+
+kotlin.jvmToolchain {
+  languageVersion.set(JavaLanguageVersion.of(11))
+  vendor.set(JvmVendorSpec.ADOPTIUM)
 }
 
 tasks.withType<Test>().configureEach {
